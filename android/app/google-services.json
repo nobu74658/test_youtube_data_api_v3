@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "421301472557",
+    "project_id": "test-youtube-api-374609",
+    "storage_bucket": "test-youtube-api-374609.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:421301472557:android:8b0b6b5fd28f37d8d1d7a4",
+        "android_client_info": {
+          "package_name": "com.example.test_youtube_api"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "421301472557-8e7dnt1kdh4msn6l91pfplsok1291shg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.test_youtube_api",
+            "certificate_hash": "26efc92db55e68d8f8dddd5b018098e2528b52f1"
+          }
+        },
+        {
+          "client_id": "421301472557-qa7aov6ich6n7t8ngjl94do4c53af1pe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAO7doe4HovjxCUsRebGdtoSPMS5HJ-Js"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "421301472557-qa7aov6ich6n7t8ngjl94do4c53af1pe.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "421301472557-q5etej5t2n9de78eg6cfn6lk28sqp69a.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.testYoutubeApi"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:421301472557:android:a3f95785f5cfc1d9d1d7a4",
+        "android_client_info": {
+          "package_name": "com.example.test_youtube_data_api_v3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "421301472557-qa7aov6ich6n7t8ngjl94do4c53af1pe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAO7doe4HovjxCUsRebGdtoSPMS5HJ-Js"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "421301472557-qa7aov6ich6n7t8ngjl94do4c53af1pe.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "421301472557-q5etej5t2n9de78eg6cfn6lk28sqp69a.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.testYoutubeApi"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
