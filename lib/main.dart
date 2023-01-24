@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:test_youtube_data_api_v3/firebase_options.dart';
 
 final credentialStateProvider = StateProvider<UserCredential?>((ref) => null);
-final credentialProvider = Provider((ref) => ref.read(credentialStateProvider));
+final credentialProvider = Provider((ref) => ref.watch(credentialStateProvider));
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -49,6 +49,8 @@ class MyHomePage extends ConsumerWidget {
                 final UserCredential userCredential = await signInWithGoogle();
                 ref.watch(credentialStateProvider.notifier).state =
                     userCredential;
+                print(ref.read(credentialStateProvider)?.credential);
+                print(ref.read(credentialProvider)?.credential);
                 print("Google認証");
               },
               child: const Text("Gmail認証"),
@@ -56,25 +58,20 @@ class MyHomePage extends ConsumerWidget {
             ElevatedButton(
               onPressed: () async {
                 ///youtube data api v3 -> get activities
-                // try {
-                //   await FirebaseAuth.instance.signOut();
-                //   print("signOut!!!");
-                // } catch (e) {
-                //   print("error: $e");
-                // }
-                //
-                // final UserCredential newUserCredential = await signInWithGoogle();
-                // ref.watch(credentialStateProvider.notifier).state = newUserCredential;
                 final UserCredential? userCredential =
-                ref.read(credentialProvider);
-                final response = await http.get(
-                  Uri.parse(
-                    "https://www.googleapis.com/youtube/v3/activities?access_token=${userCredential?.credential?.accessToken}&part=snippet&home=true",
-                  ),
-                );
+                    ref.read(credentialProvider);
+                if (userCredential != null) {
+                  final response = await http.get(
+                    Uri.parse(
+                      "https://www.googleapis.com/youtube/v3/activities?access_token=${userCredential.credential?.accessToken}&part=snippet&home=true",
+                    ),
+                  );
 
-                Map<String, dynamic> json = jsonDecode(response.body);
-                print(json);
+                  Map<String, dynamic> json = jsonDecode(response.body);
+                  print(json);
+                } else {
+                  print("no credential");
+                }
               },
               child: const Text("activities"),
             ),
@@ -83,16 +80,27 @@ class MyHomePage extends ConsumerWidget {
                 ///youtube data api v3 -> get subscription
                 final UserCredential? userCredential =
                     ref.read(credentialProvider);
-                final response = await http.get(
-                  Uri.parse(
-                    "https://www.googleapis.com/youtube/v3/subscriptions?access_token=${userCredential?.credential?.accessToken}&part=snippet&mine=true",
-                  ),
-                );
-                print(response.body);
-                Map<String, dynamic> json = jsonDecode(response.body);
-                print(json);
+                if (userCredential != null) {
+                  final response = await http.get(
+                    Uri.parse(
+                      "https://www.googleapis.com/youtube/v3/subscriptions?access_token=${userCredential.credential?.accessToken}&part=snippet&mine=true",
+                    ),
+                  );
+                  print(response.body);
+                  Map<String, dynamic> json = jsonDecode(response.body);
+                  print(json);
+                } else {
+                  print("no Credential");
+                }
               },
               child: const Text("subscription"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                signOutGoogle();
+                ref.watch(credentialStateProvider.notifier).state = null;
+              },
+              child: Text("サインアウト"),
             ),
           ],
         ),
@@ -120,5 +128,14 @@ class MyHomePage extends ConsumerWidget {
         await FirebaseAuth.instance.signInWithCredential(credential);
 
     return userCredential;
+  }
+
+  void signOutGoogle() {
+    FirebaseAuth.instance
+        .signOut()
+        .then((value) => print("successfully logout"))
+        .catchError((e) => print("ログアウト時にエラーが発生しました:" + e));
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    googleSignIn.signOut();
   }
 }
